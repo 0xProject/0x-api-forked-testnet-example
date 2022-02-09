@@ -1,46 +1,23 @@
-# Advanced Sample Hardhat Project
+# 0x API mainnet forking Hardhat example
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+This project demonstrates how you can use [Hardhat](https://hardhat.org) to fork the Ethereum mainnet and run tests on your private fork using quotes from using production Ethereum 0x API.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+## Getting started
 
-Try running some of the following tasks:
+1. Clone the repo, and then run `npm install`.
+1. Copy `.env.example` to `.env` and add your own `RPC_URL`
+1. The example test is located in `test/index.ts` and can be executed with `npx hardhat test`
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
-```
-
-# Etherscan verification
-
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
+After running `npx hardhat test` you should see an output similar to this, confirming that your mainnet quote was successfully executed on your private fork
 
 ```shell
-hardhat run --network ropsten scripts/sample-script.ts
+  0x API integration
+--------BALANCES (before -> after)---------------------------
+ETH: 53975713661856780269 -> 52969700071856780269
+DAI: 2112188250000000000 -> 3105205012411249518052
+-------------------------------------------------------------
+    ✓ it should be able to use a 0x API mainnet quote (9812ms)
+
+
+  1 passing (10s)
 ```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
-
-# Performance optimizations
-
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
